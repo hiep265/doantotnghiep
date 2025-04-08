@@ -1,0 +1,39 @@
+/* home.component.css */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 100px); /* Chiều cao trừ đi header/footer nếu có */
+    padding: 40px;
+    text-align: center;
+    color: #333; /* Màu chữ cho trang home */
+  }
+  
+  h1 {
+    color: #007bff; /* Màu tiêu đề */
+    margin-bottom: 20px;
+  }
+  
+  p {
+    margin-bottom: 15px;
+    line-height: 1.6;
+  }
+  
+  .logout-button {
+    padding: 10px 25px;
+    background-color: #dc3545; /* Màu đỏ cho nút logout */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 20px;
+  }
+  
+  .logout-button:hover {
+    background-color: #c82333;
+    transform: translateY(-2px); /* Hiệu ứng nhấc lên nhẹ */
+  }
+  

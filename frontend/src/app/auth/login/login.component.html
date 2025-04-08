@@ -1,0 +1,76 @@
+
+<div class="login-page-wrapper">
+    <div class="login-container">
+  
+      <div class="eyes-container" #eyesContainer>
+        <div class="eye">
+          <div class="pupil"></div>
+        </div>
+        <div class="eye">
+          <div class="pupil"></div>
+        </div>
+      </div>
+  
+      <div class="login-form-box">
+        <h2>Glassy Login Form</h2>
+        <p class="subtitle">Fill out the form below to login</p>
+  
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="input-group">
+            <input
+              type="text"
+              placeholder="Username"
+              formControlName="username"
+              required
+              [class.is-invalid]="username?.invalid && (username?.dirty || username?.touched)"
+            />
+            <i class="fas fa-user icon"></i>
+            <div *ngIf="username?.invalid && (username?.dirty || username?.touched)" class="invalid-feedback">
+              <small *ngIf="username?.errors?.['required']">Vui lòng nhập tên đăng nhập.</small>
+            </div>
+          </div>
+  
+          <div class="input-group">
+            <input
+              type="password"
+              placeholder="Password"
+              id="passwordInput"
+              #passwordInput
+              formControlName="password"
+              required
+              [class.is-invalid]="password?.invalid && (password?.dirty || password?.touched)"
+            />
+            <i class="fas fa-lock icon"></i>
+             <div *ngIf="password?.invalid && (password?.dirty || password?.touched)" class="invalid-feedback">
+              <small *ngIf="password?.errors?.['required']">Vui lòng nhập mật khẩu.</small>
+            </div>
+          </div>
+  
+          <div *ngIf="loginError" class="error-message">
+            {{ loginError }}
+          </div>
+  
+          <div class="options-row">
+            <div class="remember-me">
+              <input type="checkbox" id="rememberMe" formControlName="rememberMe" />
+              <label for="rememberMe">Remember Me</label>
+            </div>
+            <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+  
+          <button type="submit" class="login-button" [disabled]="loginForm.invalid || isLoading">
+            <span *ngIf="!isLoading">Login</span>
+            <span *ngIf="isLoading">
+               <i class="fas fa-spinner fa-spin"></i> Logging in...
+               </span>
+          </button>
+  
+          <p class="register-link">
+            Don't have an account? <a routerLink="/register">Register here</a>
+          </p>
+        </form>
+      </div>
+  
+       </div>
+  </div>
+  

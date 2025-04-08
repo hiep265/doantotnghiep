@@ -6,18 +6,16 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class CorsConfig {
-    @Bean
-    public WebMvcConfigurer corsConfigurer() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:5173, http://127.0.0.1:5173")  // Chỉ cho phép frontend tại cổng 5173
-                        .allowedMethods("GET", "POST", "PUT", "DELETE")
-                        .allowedHeaders("*")
-                        .allowCredentials(true);  // Cho phép gửi thông tin xác thực (cookie, JWT)
-            }
-        };
+public class CorsConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**") // Áp dụng cho tất cả các đường dẫn
+                // Thay vì allowedOrigins, sử dụng allowedOriginPatterns
+                .allowedOriginPatterns("*") // Cho phép tất cả các mẫu nguồn gốc
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // Các phương thức được phép
+                .allowedHeaders("*") // Cho phép tất cả các header
+                .allowCredentials(true); // Cho phép gửi kèm credentials (quan trọng cho JWT/Session)
+        // .maxAge(3600); // Optional: Thời gian cache kết quả preflight (giây)
     }
 }

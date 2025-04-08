@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Reset cơ bản */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%; /* Đảm bảo body chiếm toàn bộ chiều cao */
+}
+
+body {
+    font-family: sans-serif; /* Font chữ mặc định */
+    /* Đặt ảnh nền toàn cục ở đây */
+    /* QUAN TRỌNG: Thay 'path/to/your/background-image.jpg' bằng đường dẫn ảnh nền của bạn */
+    background: url('https://cdn.photoroom.com/v2/image-cache?path=gs://background-7ef44.appspot.com/backgrounds_v3/black/47_-_black.jpg') no-repeat center center fixed;
+    background-size: cover;
+    /* Màu nền dự phòng nếu ảnh không tải được */
+    background-color: #2E2E2E;
+    overflow-x: hidden; /* Tránh scroll ngang không mong muốn */
+}
+
+/* Có thể thêm các style global khác ở đây, ví dụ: */
+a {
+    /* color: #00bcd4; */ /* Màu link mặc định */
+    /* text-decoration: none; */
+}
+
+/* Import Font Awesome nếu bạn không thêm vào angular.json */
+/* @import '~@fortawesome/fontawesome-free/css/all.min.css'; */
+
