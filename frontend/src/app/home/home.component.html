@@ -6,5 +6,9 @@
     <p>You are logged in.</p>
     <p>Đây là trang chính sau khi đăng nhập thành công.</p>
     <p>Bạn có thể thêm nội dung trang chủ của mình vào đây.</p>
-    <button (click)="logout()" class="logout-button">Logout</button>
+    
+    <div class="navigation-links">
+      <button (click)="navigateToWishlist()" class="nav-link">My Wishlist</button>
+      <button (click)="logout()" class="logout-button">Logout</button>
+    </div>
   </div>

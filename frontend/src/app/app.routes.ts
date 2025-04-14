@@ -2,19 +2,32 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './home/home.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { ProductListComponent } from './products/product-list/product-list.component';
 import { authGuard } from './auth/auth.guard'; // Import functional guard
 
 export const routes: Routes = [
-  // Route mặc định: Nếu đã đăng nhập thì vào /home, chưa thì vào /login
-  // Việc kiểm tra đăng nhập có thể thực hiện trong guard hoặc logic khác
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  // Đặt trang products làm trang mặc định
+  { path: '', redirectTo: '/products', pathMatch: 'full' }, 
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [authGuard] // Sử dụng functional guard trực tiếp
+    canActivate: [authGuard]
   },
-  // Thêm route cho trang 404 nếu cần
-  { path: '**', redirectTo: '/login' } // Chuyển hướng về login nếu không khớp route nào
+  {
+    path: 'wishlist',
+    component: WishlistComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'products',
+    component: ProductListComponent
+    // Có thể thêm canActivate: [authGuard] nếu cần đăng nhập để xem sản phẩm
+  },
+  // Thêm route cho trang chi tiết sản phẩm (ví dụ: /products/:slug)
+  // { path: 'products/:slug', component: ProductDetailComponent }, 
+  // Nếu không khớp route nào, chuyển hướng về trang products
+  { path: '**', redirectTo: '/products' } 
 ];

@@ -1,0 +1,101 @@
+<div class="product-list-page">
+  <div class="breadcrumb">
+    <span>Trang chủ</span> > <span>Quần áo</span> <!-- Cần dynamic -->
+  </div>
+
+  <div class="page-title">
+    <h1>Quần áo</h1>
+    <span class="item-count">872 mặt hàng</span> <!-- Cần dynamic -->
+  </div>
+
+  <div class="main-content">
+    <aside class="filters">
+      <h2>Bộ Lọc</h2>
+      <!-- Các bộ lọc sẽ thêm sau -->
+      <div class="filter-group">
+        <h3>Danh Mục</h3>
+        <ul>
+          <li><input type="checkbox" id="cat1"> <label for="cat1">Trang Phục Nữ (265)</label></li>
+          <li><input type="checkbox" id="cat2"> <label for="cat2">Áo Thun (34)</label></li>
+          <li><input type="checkbox" id="cat3"> <label for="cat3">Áo Sơ Mi & Áo Kiểu (32)</label></li>
+          <!-- Thêm các danh mục khác -->
+        </ul>
+      </div>
+      <div class="filter-group">
+        <h3>Giá (VND)</h3>
+        <!-- Range slider placeholder -->
+        <div class="price-range-placeholder"></div>
+      </div>
+      <div class="filter-group">
+        <h3>Kích Cỡ</h3>
+        <!-- Các checkbox kích cỡ -->
+      </div>
+      <div class="filter-group">
+        <h3>Màu Sắc</h3>
+        <!-- Các checkbox màu sắc -->
+      </div>
+       <div class="filter-group">
+        <h3>Chất Liệu</h3>
+        <!-- Các checkbox chất liệu -->
+      </div>
+    </aside>
+
+    <section class="product-grid-container">
+      <div class="toolbar">
+        <div class="sort-options">
+          <label for="sort">Sắp xếp theo:</label>
+          <select id="sort">
+            <option value="recommended">Gợi ý</option>
+            <option value="price_asc">Giá tăng dần</option>
+            <option value="price_desc">Giá giảm dần</option>
+            <option value="newest">Mới nhất</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="loading-container" *ngIf="isLoading">
+        <div class="loading-spinner"></div>
+        <p>Loading products...</p>
+      </div>
+
+      <!-- Error State -->
+      <div class="error-message" *ngIf="error">
+        <p>{{ error }}</p>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-products" *ngIf="!isLoading && products.length === 0 && !error">
+        <p>Không tìm thấy sản phẩm nào phù hợp.</p>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="product-grid" *ngIf="!isLoading && products.length > 0">
+        <div class="product-card" *ngFor="let product of products">
+          <a [routerLink]="['/products', product.slug || product.id]" class="product-link">
+            <div class="product-image">
+              <img [src]="product.imageUrl || 'assets/images/product-placeholder.jpg'" [alt]="product.name">
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">{{ product.name }}</h3>
+              <div class="product-price">{{ product.price | currency:'VND':'symbol':'1.0-0' }}</div>
+            </div>
+          </a>
+          <button 
+            class="wishlist-button" 
+            [class.active]="isInWishlist(product)" 
+            (click)="toggleWishlist(product)" 
+            [disabled]="!product.primaryVariantId" 
+            title="{{ isInWishlist(product) ? 'Remove from Wishlist' : 'Add to Wishlist' }}">
+            <i class="{{ isInWishlist(product) ? 'fas' : 'far' }} fa-heart"></i>
+          </button>
+          <button class="add-to-cart-button">Mua Hàng</button> <!-- Cần logic thêm vào giỏ -->
+        </div>
+      </div>
+      
+      <!-- Pagination Placeholder -->
+      <div class="pagination"></div>
+
+    </section>
+  </div>
+</div> 

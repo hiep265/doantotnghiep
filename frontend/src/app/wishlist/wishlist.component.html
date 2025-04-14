@@ -1,0 +1,62 @@
+<div class="wishlist-container">
+  <div class="wishlist-header">
+    <h1>My Favorites</h1>
+    <p class="wishlist-description">Products you've added to your wishlist</p>
+  </div>
+
+  <!-- Error message -->
+  <div class="error-message" *ngIf="error">
+    <p>{{ error }}</p>
+  </div>
+
+  <!-- Loading state -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+    <p>Loading your wishlist...</p>
+  </div>
+
+  <!-- Empty wishlist state -->
+  <div class="empty-wishlist" *ngIf="!isLoading && (!wishlistItems || wishlistItems.length === 0) && !error">
+    <div class="empty-icon">
+      <i class="far fa-heart"></i>
+    </div>
+    <h2>Your wishlist is empty</h2>
+    <p>Add items to your wishlist to keep track of products you love.</p>
+    <button (click)="navigateToProducts()" class="browse-button">Browse Products</button>
+  </div>
+
+  <!-- Wishlist items display -->
+  <div class="wishlist-grid" *ngIf="!isLoading && wishlistItems && wishlistItems.length > 0">
+    <div class="product-card" *ngFor="let item of wishlistItems">
+      <div class="product-image">
+        <img [src]="item.product_image_url || 'assets/images/product-placeholder.jpg'" [alt]="item.product_name">
+        <button class="remove-btn" (click)="removeFromWishlist(item.wishlist_item_id)">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="product-info">
+        <h3 class="product-name">{{ item.product_name }}</h3>
+        
+        <div class="product-variant-info" *ngIf="item.color_name || item.size_name">
+          <span *ngIf="item.color_name">Color: {{ item.color_name }}</span>
+          <span *ngIf="item.size_name">Size: {{ item.size_name }}</span>
+        </div>
+        
+        <div class="product-price-container">
+          <div class="product-price">
+            {{ item.price | currency:'VND':'symbol':'1.0-0' }}
+          </div>
+        </div>
+        
+        <div class="product-status" [ngClass]="{'in-stock': item.stock_quantity > 0, 'out-of-stock': item.stock_quantity <= 0}">
+          {{ item.stock_quantity > 0 ? 'In Stock' : 'Out of Stock' }}
+        </div>
+        
+        <div class="product-actions">
+          <a [routerLink]="['/products', item.product_id]" class="view-details">View Details</a>
+          <button class="add-to-cart" [disabled]="item.stock_quantity <= 0">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
